@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Complimentr</title>
-    <!-- Include Dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link
       href="https://fonts.googleapis.com/css?family=Rubik:400,900&display=swap"
@@ -45,7 +44,7 @@
             Your Name
             <input
               type="text"
-              placeholder="Jane"
+              placeholder="Arvind"
               name="sender"
               v-model="sender"
             />
@@ -56,7 +55,7 @@
             Person to compliment
             <input
               type="text"
-              placeholder="Sally"
+              placeholder="Shaan"
               name="receiver"
               v-model="receiver"
             />
@@ -66,7 +65,7 @@
             Your compliment
             <input
               type="text"
-              placeholder="an amazing person!"
+              placeholder="is very intelligent!"
               name="compliment"
               v-model="compliment"
             />
@@ -97,7 +96,6 @@
             this.compliments = await response.json();
           },
           async sendCompliment() {
-            // Gather data from the form
             const data = {
               to: this.to,
               sender: this.sender,
@@ -115,7 +113,6 @@
             });
             const result = await response.json();
             console.log(result);
-            // Clear the form
             this.to = null;
             this.sender = null;
             this.receiver = null;
