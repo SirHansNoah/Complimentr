@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 app.get("/api/compliments", async (req, res) => {
   
-  const sentMessages = client.messages.list({from: twilioPhoneNumber});
+  const sentMessages = await client.messages.list({from: twilioPhoneNumber});
   const compliments = sentMessages.map(message => message.body);
   res.json(compliments);
 });
@@ -21,8 +21,11 @@ app.post("/api/compliments", async (req, res) => {
   const to = req.body.to;
   const from = process.env.TWILIO_PHONE_NUMBER;
   const body = `${req.body.sender} says: ${req.body.receiver} is ${req.body.compliment}. See more compliments at ${req.headers.referer}`;
-  // TODO: Send a message
-  res.json({ success: false });
+  try{
+  await client.messages.create({to,from,body});}catch(err){
+    res.status(err.status).json({ success: false, message: err.message});
+  }
+  res.json({ success: true });
 });
 
 app.listen(port, () => console.log(`Prototype is listening on port ${port}!`));
